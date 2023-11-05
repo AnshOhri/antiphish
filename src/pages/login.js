@@ -20,9 +20,11 @@ const Login = () => {
 		<div className="auth-container">
 			<div className="form-container">
 				<h2>Login</h2>
-				<input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-				<input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-				<button onClick={handleLogin}>Login</button>
+				<input className="auth-input" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+				<input className="auth-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+				<button className="auth-button" onClick={handleLogin}>
+					Login
+				</button>
 				<Link to="/signup">Don't have an account? Sign up</Link>
 			</div>
 		</div>
