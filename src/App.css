@@ -10,7 +10,7 @@
 	box-sizing: border-box; /* Add this line */
 }
 
-input {
+.auth-input {
 	width: 100%;
 	margin: 10px 0;
 	padding: 10px;
@@ -23,7 +23,7 @@ h2 {
 	margin-bottom: 20px;
 }
 
-button {
+.auth-button {
 	width: 100%;
 	padding: 10px;
 	background-color: #007bff;
@@ -33,6 +33,6 @@ button {
 	cursor: pointer;
 }
 
-button:hover {
+auth-button:hover {
 	background-color: #0056b3;
 }
