@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import Login from './pages/login';
 import Signup from './pages/signup';
-import NoPage from './pages/NoPage';
-import UIDashboard1 from './pages/DashboardRender';
+import NoPage from './pages/NotFound';
+import UIDashboard1 from './pages/Dashboard';
 
 const AppRouter = () => {
 	return (
