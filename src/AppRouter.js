@@ -4,18 +4,22 @@ import { Navigate } from 'react-router-dom';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import NoPage from './pages/NotFound';
-import UIDashboard1 from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
+import Forgot from "./pages/Forgot";
+import { AuthProvider, RequireAuth, IfLoggedIn } from './hooks/authContext';
 
 const AppRouter = () => {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Navigate to="/login" />} />
-				<Route path="login" element={<Login />} />
-				<Route path="signup" element={<Signup />} />
-				<Route path="dashboard" element={<UIDashboard1 />} />
-				<Route path="*" element={<NoPage />} />
-			</Routes>
+			<AuthProvider>
+				<Routes>
+					<Route path="/login" element={<IfLoggedIn><Login /></IfLoggedIn>} />
+					<Route path="/signup" element={<IfLoggedIn><Signup /></IfLoggedIn>} />
+					<Route path="/forgot" element={<IfLoggedIn><Forgot /></IfLoggedIn>} />
+					<Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+					<Route path="*" element={<NoPage />} />
+				</Routes>
+			</AuthProvider>
 		</BrowserRouter>
 	);
 };

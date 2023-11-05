@@ -8,65 +8,33 @@ const AuthContext = createContext();
 const useAuthContext = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
-	const [isPhoneVerified, setIsPhoneVerified] = useState(true);
 	const [authState, setAuthState] = useState(() => {
-		const storedToken = localStorage.getItem('stockbettoken');
+		const storedToken = localStorage.getItem('phishtoken');
 		return storedToken ? JSON.parse(storedToken) : null;
 	});
 
 	const isAuth = authState !== null;
 
 	// eslint-disable-next-line no-shadow
-	const loginHandler = (token, isPhoneVerified = true) => {
-		setIsPhoneVerified(isPhoneVerified);
+	const loginHandler = (token) => {
 		setAuthState(token);
-		localStorage.setItem('stockbettoken', JSON.stringify(token));
+		localStorage.setItem('phishtoken', JSON.stringify(token));
 		toast.success('Logged-In Successfully');
 	};
 
 	const logoutHandler = (noToast = false) => {
 		setAuthState(null);
-		localStorage.removeItem('stockbettoken');
+		localStorage.removeItem('phishtoken');
 		if (!noToast) toast.success('Logged-Out Successfully');
 	};
-
-	useEffect(() => {
-		// eslint-disable-next-line consistent-return
-		const checkIsUserVerified = async () => {
-			const url = `${process.env.REACT_APP_BACKEND_URL}/users/isUserVerified`;
-			const headers = { Authorization: `Bearer ${authState.token}` };
-
-			try {
-				const result = await fetch(url, { method: 'GET', headers });
-				if (result.status === 403) {
-					toast('Session timeout!');
-					return logoutHandler();
-				}
-				const data = await result.json();
-				if (data.error === 'User not found') {
-					return logoutHandler();
-				}
-				setIsPhoneVerified(data.isPhoneVerified);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		if (authState) {
-			checkIsUserVerified();
-		}
-	}, [authState]);
-
 	const authObject = useMemo(
 		() => ({
 			isAuth,
-			isPhoneVerified,
 			authState,
 			loginHandler,
 			logoutHandler,
-			setIsPhoneVerified,
 		}),
-		[isAuth, isPhoneVerified, authState]
+		[isAuth, authState]
 	);
 
 	return (
@@ -84,13 +52,7 @@ function RequireAuth({ children }) {
 		return <Navigate to='/login' state={{ from: location.pathname }} />;
 	}
 
-	if (!authObject.isPhoneVerified && location.pathname !== '/verifyPhone') {
-		return <Navigate to='/verifyPhone' />;
-	}
-
-	if (authObject.isPhoneVerified && location.pathname === '/verifyPhone') {
-		return <Navigate to='/dashboard' />;
-	}
+    console.log('logged in!')
 
 	return <>{children}</>;
 }
@@ -103,6 +65,8 @@ function IfLoggedIn({ children }) {
 	if (authObject.isAuth) {
 		return <Navigate to={pathName} state={{ from: location.pathname }} />;
 	}
+
+    console.log('a')
 
 	return <>{children}</>;
 }

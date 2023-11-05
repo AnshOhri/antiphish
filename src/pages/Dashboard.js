@@ -1,7 +1,12 @@
 import React from 'react';
+import Navbar from '../components//Navbar';
+import PieChart from '../components/Chart';
 
-const UIDashboard1 = () => {
-	return <div></div>;
+const Dashboard = () => {
+	return <div>
+		<Navbar />
+		<PieChart />
+	</div>;
 };
 
-export default UIDashboard1;
+export default Dashboard;
