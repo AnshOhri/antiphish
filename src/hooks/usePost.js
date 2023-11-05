@@ -10,7 +10,7 @@ const usePost = (url, header, token) => {
 	const resetError = useCallback(() => setError(null), []);
 
 	const authObject = useAuthContext();
-	const authToken = token ? authObject.authState.token : null;
+	const authToken = token ? authObject.authState.token.access : null;
 	const { logoutHandler } = authObject;
 
 	const sendRequest = useCallback(

@@ -8,7 +8,7 @@ const useGet = (url, header, method, token) => {
 	const [error, setError] = useState(null);
 
 	const authObject = useAuthContext();
-	const authToken = authObject.authState.token;
+	const authToken = authObject.authState.token.access;
 	const { logoutHandler } = authObject;
 
 	const sendRequest = useCallback(

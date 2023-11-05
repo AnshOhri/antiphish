@@ -36,3 +36,15 @@ h2 {
 auth-button:hover {
 	background-color: #0056b3;
 }
+
+#dash-content{
+	margin-top: 40px;
+	width: 60%;
+	margin-right: auto;
+	margin-left:auto;
+	gap:10px;
+}
+
+.table-container {
+	width:100%;
+}
